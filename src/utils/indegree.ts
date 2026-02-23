@@ -1,20 +1,20 @@
-import { Graph } from '../Graph.js';
-import { NoInfer } from '../types.js';
+import { Graph } from '../Graph';
+import { NoInfer } from '../types';
 
 /**
  * Computes the indegree for the given node.
  * Not very efficient, costs O(E) where E = number of edges.
  */
 export function indegree<Node>(graph: Graph<Node>, node: NoInfer<Node>): number {
-  let degree = 0;
+	let degree = 0;
 
-  for (const adjacentNodes of graph.edges.values()) {
-    for (let adjacentNode of adjacentNodes) {
-      if (adjacentNode === node) {
-        degree++;
-      }
-    }
-  }
+	graph.edges.forEach((adjacentNodes, _) => {
+		adjacentNodes.forEach((adjacentNode) => {
+			if (adjacentNode === node) {
+				degree++;
+			}
+		});
+	});
 
-  return degree;
+	return degree;
 }

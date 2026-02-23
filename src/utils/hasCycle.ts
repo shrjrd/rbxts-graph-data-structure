@@ -1,7 +1,6 @@
-import { depthFirstSearch } from '../algorithms/depthFirstSearch/index.js';
-import { DepthFirstSearchOptions } from '../algorithms/depthFirstSearch/types.js';
-import { CycleError } from '../CycleError.js';
-import { Graph } from '../Graph.js';
+import { depthFirstSearch } from '../algorithms/depthFirstSearch';
+import { DepthFirstSearchOptions } from '../algorithms/depthFirstSearch/types';
+import { Graph } from '../Graph';
 
 /**
  * Perform a depth first search to detect an eventual cycle.
@@ -9,23 +8,23 @@ import { Graph } from '../Graph.js';
  * You can provide a `shouldFollow` function to constrain the traversing and
  * provide `sourceNodes` to explore a particular sub-graphs.
  */
-export function hasCycle<Node, LinkProps>(
-  graph: Graph<Node, LinkProps>,
-  opts?: Pick<DepthFirstSearchOptions<Node, LinkProps>, 'shouldFollow' | 'sourceNodes'>,
+export function hasCycle<Node extends defined, LinkProps>(
+	graph: Graph<Node, LinkProps>,
+	opts?: Pick<DepthFirstSearchOptions<Node, LinkProps>, 'shouldFollow' | 'sourceNodes'>,
 ): boolean {
-  try {
-    depthFirstSearch(graph, {
-      ...opts,
-      includeSourceNodes: true,
-      errorOnCycle: true,
-    });
-    // No error thrown -> no cycles
-    return false;
-  } catch (error) {
-    if (error instanceof CycleError) {
-      return true;
-    } else {
-      throw error;
-    }
-  }
+	try {
+		depthFirstSearch(graph, {
+			...opts,
+			includeSourceNodes: true,
+			errorOnCycle: true,
+		});
+		// No error thrown -> no cycles
+		return false;
+	} catch (error) {
+		if ((error as string).find('CycleError')) {
+			return true;
+		} else {
+			throw error;
+		}
+	}
 }

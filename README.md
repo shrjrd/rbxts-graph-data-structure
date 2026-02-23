@@ -18,7 +18,7 @@ The primary use case for this library is in implementing [dataflow programming](
 
 This library is distributed only via [NPM](npmjs.com). Install by running
 
-`npm install graph-data-structure`
+`npm install @rbxts/graph-data-structure`
 
 Require it in your code like this.
 
@@ -29,7 +29,7 @@ import {
   deserializeGraph,
   topologicalSort,
   shortestPath,
-} from 'graph-data-structure';
+} from '@rbxts/graph-data-structure';
 ```
 
 ## Examples

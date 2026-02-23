@@ -1,35 +1,35 @@
-import { describe, it } from 'vitest';
-import { Graph } from '../Graph.js';
-import { findNodes } from './findNodes.js';
+import { describe, it, expect } from '@rbxts/jest-globals';
+import { Graph } from '../Graph';
+import { findNodes } from './findNodes';
 
 describe('findNodes', () => {
-  type Node = { id: string; type: string };
+	type Node = { id: string; type: string };
 
-  it('should retrieve a node successfully when it exists in the graph', ({ expect }) => {
-    const graph = new Graph<Node>();
-    const node1 = { id: '1', type: 'foo' };
-    const node2 = { id: '2', type: 'foo' };
+	it('should retrieve a node successfully when it exists in the graph', () => {
+		const graph = new Graph<Node>();
+		const node1 = { id: '1', type: 'foo' };
+		const node2 = { id: '2', type: 'foo' };
 
-    graph.addNode(node1);
-    graph.addNode(node2);
+		graph.addNode(node1);
+		graph.addNode(node2);
 
-    expect(findNodes(graph, (n) => n.id === '1')).toEqual([node1]);
-    expect(findNodes(graph, (n) => n.id === '2')).toEqual([node2]);
-  });
+		expect(findNodes(graph, (n) => n.id === '1')).toEqual([node1]);
+		expect(findNodes(graph, (n) => n.id === '2')).toEqual([node2]);
+	});
 
-  it('should return an empty array when no matching node is found', ({ expect }) => {
-    const graph = new Graph<Node>();
-    expect(findNodes(graph, (n) => n.id === 'nope')).toEqual([]);
-  });
+	it('should return an empty array when no matching node is found', () => {
+		const graph = new Graph<Node>();
+		expect(findNodes(graph, (n) => n.id === 'nope')).toEqual([]);
+	});
 
-  it('should return all the nodes matching', ({ expect }) => {
-    const graph = new Graph<Node>();
-    const node1 = { id: '1', type: 'foo' };
-    const node2 = { id: '2', type: 'foo' };
+	it('should return all the nodes matching', () => {
+		const graph = new Graph<Node>();
+		const node1 = { id: '1', type: 'foo' };
+		const node2 = { id: '2', type: 'foo' };
 
-    graph.addNode(node1);
-    graph.addNode(node2);
+		graph.addNode(node1);
+		graph.addNode(node2);
 
-    expect(findNodes(graph, (n) => n.type === 'foo')).toEqual([node1, node2]);
-  });
+		expect(findNodes(graph, (n) => n.type === 'foo')).toEqual([node1, node2]);
+	});
 });

@@ -1,6 +1,7 @@
+import { Error } from '@rbxts/luau-polyfill';
+
 export class CycleError extends Error {
-  constructor(message: string) {
-    super(message);
-    Object.setPrototypeOf(this, CycleError.prototype);
-  }
+	constructor(message: string) {
+		super('CycleError ' + message);
+	}
 }
